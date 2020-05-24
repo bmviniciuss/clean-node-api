@@ -20,6 +20,7 @@
   },
   "plugins": ["@typescript-eslint", "jest", "eslint-plugin-import-helpers"],
   "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
     "import-helpers/order-imports": [
       "warn",
       {
