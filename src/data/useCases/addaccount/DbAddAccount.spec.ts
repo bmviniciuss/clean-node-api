@@ -1,6 +1,5 @@
-import { AddAccount } from '../../../domain/useCases/AddAccount'
-import { Encrypter } from '../../protocol/Encrypter'
 import { DbAddAccount } from './DbAddAccount'
+import { Encrypter } from './DbAddAccountProtocols'
 
 function makeEncrypterStub(): Encrypter {
   class EncrypterStub implements Encrypter {
@@ -13,7 +12,7 @@ function makeEncrypterStub(): Encrypter {
 }
 
 interface MakeSutReturn {
-  sut: AddAccount
+  sut: DbAddAccount
   encrypterStub: Encrypter
 }
 
