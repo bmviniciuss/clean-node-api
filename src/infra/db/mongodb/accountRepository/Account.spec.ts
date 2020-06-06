@@ -1,6 +1,18 @@
 import { MongoHelper } from '../helpers/mongoHelper'
 import { AccountMongoRepository } from './Account'
 
+interface MakeSutReturnType {
+  sut: AccountMongoRepository
+}
+
+function makeSut(): MakeSutReturnType {
+  const sut = new AccountMongoRepository()
+
+  return {
+    sut,
+  }
+}
+
 describe('Account Mongo Repository', () => {
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
@@ -11,7 +23,7 @@ describe('Account Mongo Repository', () => {
   })
 
   it('Should return an account on success', async () => {
-    const sut = new AccountMongoRepository()
+    const { sut } = makeSut()
     const account = await sut.add({
       name: 'any_name',
       email: 'any_email@mail.com',
