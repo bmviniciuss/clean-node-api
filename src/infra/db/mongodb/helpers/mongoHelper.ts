@@ -19,7 +19,7 @@ export const MongoHelper = {
   },
 
   map(collection: any): any {
-    const { _id, ...accountWithoutId } = collection
-    return { id: _id, ...accountWithoutId }
+    const { _id, ...collectionWithoutId } = collection
+    return { id: _id, ...collectionWithoutId }
   },
 }
