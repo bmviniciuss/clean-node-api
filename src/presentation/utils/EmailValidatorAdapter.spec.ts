@@ -9,7 +9,7 @@ jest.mock('validator', () => ({
   },
 }))
 
-interface makeSutType {
+type makeSutType = {
   sut: EmailValidator
 }
 

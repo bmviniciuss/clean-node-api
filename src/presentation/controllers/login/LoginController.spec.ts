@@ -23,7 +23,16 @@ function makeAuthentication(): Authentication {
   return new AuthenticationStub()
 }
 
-interface MakeSutType {
+function makeFakeRequest(): HttpRequest {
+  return {
+    body: {
+      email: 'any_email@mail.com',
+      password: 'any_password',
+    },
+  }
+}
+
+type MakeSutType = {
   sut: LoginController
   emailValidatorStub: EmailValidator
   authenticationStub: Authentication
@@ -39,15 +48,6 @@ function makeSut(): MakeSutType {
     sut,
     emailValidatorStub,
     authenticationStub,
-  }
-}
-
-function makeFakeRequest(): HttpRequest {
-  return {
-    body: {
-      email: 'any_email@mail.com',
-      password: 'any_password',
-    },
   }
 }
 

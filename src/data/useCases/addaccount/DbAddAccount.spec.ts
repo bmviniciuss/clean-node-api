@@ -11,18 +11,22 @@ function makeEncrypterStub(): Encrypter {
   return new EncrypterStub()
 }
 
-const makeFakeAccount = (): AccountModel => ({
-  id: 'valid_id',
-  name: 'valid_name',
-  email: 'valid_email',
-  password: 'hashed_password',
-})
+function makeFakeAccount(): AccountModel {
+  return {
+    id: 'valid_id',
+    name: 'valid_name',
+    email: 'valid_email',
+    password: 'hashed_password',
+  }
+}
 
-const makeFakeAccountData = (): AddAccountModel => ({
-  name: 'valid_name',
-  email: 'valid_email',
-  password: 'valid_password',
-})
+function makeFakeAccountData(): AddAccountModel {
+  return {
+    name: 'valid_name',
+    email: 'valid_email',
+    password: 'valid_password',
+  }
+}
 
 function makeAddAccountReposiroty(): AddAccountRepository {
   class AddAccountRepositoryStub implements AddAccountRepository {
@@ -34,7 +38,7 @@ function makeAddAccountReposiroty(): AddAccountRepository {
   return new AddAccountRepositoryStub()
 }
 
-interface MakeSutReturn {
+type MakeSutReturn = {
   sut: DbAddAccount
   encrypterStub: Encrypter
   addAccountRepositoryStub: AddAccountRepository

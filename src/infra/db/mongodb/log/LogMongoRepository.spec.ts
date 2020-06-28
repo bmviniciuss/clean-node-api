@@ -3,10 +3,11 @@ import { Collection } from 'mongodb'
 import { MongoHelper } from '../helpers/mongoHelper'
 import { LogMongoRepository } from './LogMongoRepository'
 
-interface MakeSutType {
+type MakeSutType = {
   sut: LogMongoRepository
 }
-const makeSut = (): MakeSutType => {
+
+function makeSut(): MakeSutType {
   const sut = new LogMongoRepository()
   return {
     sut,

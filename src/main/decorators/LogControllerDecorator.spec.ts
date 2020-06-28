@@ -24,7 +24,33 @@ function makeControllerStub(): Controller {
   return new ControllerStub()
 }
 
-interface MakeSutReturnType {
+function makeFakeAccount(): AccountModel {
+  return {
+    id: 'valid_id',
+    name: 'valid_name',
+    email: 'valid_email@mail.com',
+    password: 'valid_password',
+  }
+}
+
+function makeFakeRequest(): HttpRequest {
+  return {
+    body: {
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'any_password',
+      passwordConfirmation: 'any_password',
+    },
+  }
+}
+
+function makeFakeServerError(): HttpResponse {
+  const fakeError = new Error()
+  fakeError.stack = 'any_stack'
+  return serverError(fakeError)
+}
+
+type MakeSutReturnType = {
   sut: Controller
   controllerStub: Controller
   logErrorRepositoryStub: LogErrorRepository
@@ -40,28 +66,6 @@ function makeSut(): MakeSutReturnType {
     controllerStub,
     logErrorRepositoryStub,
   }
-}
-
-const makeFakeAccount = (): AccountModel => ({
-  id: 'valid_id',
-  name: 'valid_name',
-  email: 'valid_email@mail.com',
-  password: 'valid_password',
-})
-
-const makeFakeRequest = (): HttpRequest => ({
-  body: {
-    name: 'any_name',
-    email: 'any_email@mail.com',
-    password: 'any_password',
-    passwordConfirmation: 'any_password',
-  },
-})
-
-const makeFakeServerError = (): HttpResponse => {
-  const fakeError = new Error()
-  fakeError.stack = 'any_stack'
-  return serverError(fakeError)
 }
 
 describe('LogController Decorator', () => {

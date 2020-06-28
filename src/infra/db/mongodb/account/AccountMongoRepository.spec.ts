@@ -1,7 +1,7 @@
 import { MongoHelper } from '../helpers/mongoHelper'
 import { AccountMongoRepository } from './AccountMongoRepository'
 
-interface MakeSutReturnType {
+type MakeSutReturnType = {
   sut: AccountMongoRepository
 }
 
