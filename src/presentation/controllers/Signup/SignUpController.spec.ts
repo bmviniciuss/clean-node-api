@@ -4,19 +4,17 @@ import { HttpRequest } from '../../protocols'
 import { SignUpController } from './SignUpController'
 import { EmailValidator, AddAccount, AddAccountModel, AccountModel, Validation } from './SignupProtocols'
 
-const makeEmailValidator = (): EmailValidator => {
+function makeEmailValidator(): EmailValidator {
   class EmailValidatorStub implements EmailValidator {
     isValid(email: string): boolean {
       return true
     }
   }
 
-  const emailValidatorStub = new EmailValidatorStub()
-
-  return emailValidatorStub
+  return new EmailValidatorStub()
 }
 
-const makeAddAccount = (): AddAccount => {
+function makeAddAccount(): AddAccount {
   class AddAccountStub implements AddAccount {
     async add(account: AddAccountModel): Promise<AccountModel> {
       return new Promise((resolve) => resolve(makeFakeAccount()))
@@ -35,14 +33,34 @@ function makeValidation(): Validation {
   return new ValidationStub()
 }
 
-interface MakeSutType {
+function makeFakeAccount(): AccountModel {
+  return {
+    id: 'valid_id',
+    name: 'valid_name',
+    email: 'valid_email@mail.com',
+    password: 'valid_password',
+  }
+}
+
+function makeFakeRequest(): HttpRequest {
+  return {
+    body: {
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'any_password',
+      passwordConfirmation: 'any_password',
+    },
+  }
+}
+
+type MakeSutType = {
   sut: SignUpController
   emailValidatorStub: EmailValidator
   addAccountStub: AddAccount
   validationStub: Validation
 }
 
-const makeSut = (): MakeSutType => {
+function makeSut(): MakeSutType {
   const emailValidatorStub = makeEmailValidator()
   const addAccountStub = makeAddAccount()
   const validationStub = makeValidation()
@@ -55,22 +73,6 @@ const makeSut = (): MakeSutType => {
     validationStub,
   }
 }
-
-const makeFakeAccount = (): AccountModel => ({
-  id: 'valid_id',
-  name: 'valid_name',
-  email: 'valid_email@mail.com',
-  password: 'valid_password',
-})
-
-const makeFakeRequest = (): HttpRequest => ({
-  body: {
-    name: 'any_name',
-    email: 'any_email@mail.com',
-    password: 'any_password',
-    passwordConfirmation: 'any_password',
-  },
-})
 
 describe('SignUp Controller', () => {
   it('should return 400 if password confirmation fails', async () => {
