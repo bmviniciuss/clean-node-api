@@ -1,4 +1,4 @@
-import { MissingParamError } from '../../errors'
+import { MissingParamError, InvalidParamError } from '../../errors'
 import { serverError, badRequest } from '../../helpers/httpHelper'
 import { Controller, HttpRequest, HttpResponse } from '../../protocols'
 import { EmailValidator } from '../Signup/SignupProtocols'
@@ -17,7 +17,10 @@ export class LoginController implements Controller {
         if (!httpRequest.body[field]) return badRequest(new MissingParamError(field))
       }
 
-      this.emailvalidator.isValid(httpRequest.body.email)
+      const validEmail = this.emailvalidator.isValid(httpRequest.body.email)
+      if (!validEmail) {
+        return badRequest(new InvalidParamError('email'))
+      }
     } catch (error) {
       return serverError(error)
     }
