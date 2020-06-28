@@ -18,13 +18,22 @@ interface MakeSutType {
   emailValidatorStub: EmailValidator
 }
 
-const makeSut = (): MakeSutType => {
+function makeSut(): MakeSutType {
   const emailValidatorStub = makeEmailValidator()
   const sut = new LoginController(emailValidatorStub)
 
   return {
     sut,
     emailValidatorStub,
+  }
+}
+
+function makeFakeRequest(): HttpRequest {
+  return {
+    body: {
+      email: 'any_email@mail.com',
+      password: 'any_password',
+    },
   }
 }
 
@@ -58,48 +67,22 @@ describe('LoginController', () => {
 
   it('Should calll EmailValidator with correct email', async () => {
     const { sut, emailValidatorStub } = makeSut()
-
     const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid')
-
-    const httpRequest: HttpRequest = {
-      body: {
-        email: 'any_email@mail.com',
-        password: 'any_password',
-      },
-    }
-
-    await sut.handle(httpRequest)
-
+    await sut.handle(makeFakeRequest())
     expect(isValidSpy).toHaveBeenCalledWith('any_email@mail.com')
   })
 
   it('Should calll EmailValidator with correct email', async () => {
     const { sut, emailValidatorStub } = makeSut()
-
     const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid')
-
-    const httpRequest: HttpRequest = {
-      body: {
-        email: 'any_email@mail.com',
-        password: 'any_password',
-      },
-    }
-
-    await sut.handle(httpRequest)
-
+    await sut.handle(makeFakeRequest())
     expect(isValidSpy).toHaveBeenCalledWith('any_email@mail.com')
   })
 
   it('Should return 400 if an invalid email is provided', async () => {
     const { sut, emailValidatorStub } = makeSut()
     jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false)
-    const httpRequest: HttpRequest = {
-      body: {
-        email: 'any_email@mail.com',
-        password: 'any_password',
-      },
-    }
-    const httpReponse = await sut.handle(httpRequest)
+    const httpReponse = await sut.handle(makeFakeRequest())
     expect(httpReponse).toEqual(badRequest(new InvalidParamError('email')))
   })
 })
