@@ -1,9 +1,7 @@
-import { Authentication } from '../../../domain/useCases/Authentication'
 import { MissingParamError, InvalidParamError } from '../../errors'
 import { badRequest, serverError, unauthorized } from '../../helpers/httpHelper'
-import { HttpRequest, Controller } from '../../protocols'
-import { EmailValidator } from '../Signup/SignupProtocols'
 import { LoginController } from './LoginController'
+import { Authentication, EmailValidator, HttpRequest } from './loginProtocols'
 
 function makeEmailValidator(): EmailValidator {
   class EmailValidatorStub implements EmailValidator {
@@ -26,7 +24,7 @@ function makeAuthentication(): Authentication {
 }
 
 interface MakeSutType {
-  sut: Controller
+  sut: LoginController
   emailValidatorStub: EmailValidator
   authenticationStub: Authentication
 }
