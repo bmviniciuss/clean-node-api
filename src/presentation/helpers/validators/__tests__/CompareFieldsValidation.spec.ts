@@ -1,3 +1,4 @@
+import { InvalidParamError } from '../../../errors'
 import { CompareFieldsValidation } from '../CompareFieldsValidation'
 
 type MakeSutType = {
@@ -16,5 +17,14 @@ describe('CompareFieldsValidation', () => {
     const { sut } = makeSut()
     const error = sut.validate({ field: 'any_value', toCompareField: 'any_value' })
     expect(error).toBeUndefined()
+  })
+
+  it('should return a InvalidParamError if validation fails', () => {
+    const { sut } = makeSut()
+    const error = sut.validate({
+      field: 'any_value',
+      toCompareField: 'wrong_value',
+    })
+    expect(error).toEqual(new InvalidParamError('toCompareField'))
   })
 })
