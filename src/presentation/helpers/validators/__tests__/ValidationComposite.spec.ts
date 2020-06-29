@@ -1,5 +1,5 @@
 import { MissingParamError } from '../../../errors'
-import { Validation } from '../Validation'
+import { Validation } from '../../../protocols/Validation'
 import { ValidationComposite } from '../ValidationComposite'
 
 function makeValidation(): Validation {
