@@ -4,9 +4,9 @@ import { HttpRequest } from '../../protocols'
 import { SignUpController } from './SignUpController'
 import { AddAccount, AddAccountModel, AccountModel, Validation } from './SignupProtocols'
 
-function makeAddAccount(): AddAccount {
+function makeAddAccount (): AddAccount {
   class AddAccountStub implements AddAccount {
-    async add(account: AddAccountModel): Promise<AccountModel> {
+    async add (account: AddAccountModel): Promise<AccountModel> {
       return new Promise((resolve) => resolve(makeFakeAccount()))
     }
   }
@@ -14,32 +14,32 @@ function makeAddAccount(): AddAccount {
   return new AddAccountStub()
 }
 
-function makeValidation(): Validation {
+function makeValidation (): Validation {
   class ValidationStub implements Validation {
-    validate(input: any): Error {
+    validate (input: any): Error {
       return null
     }
   }
   return new ValidationStub()
 }
 
-function makeFakeAccount(): AccountModel {
+function makeFakeAccount (): AccountModel {
   return {
     id: 'valid_id',
     name: 'valid_name',
     email: 'valid_email@mail.com',
-    password: 'valid_password',
+    password: 'valid_password'
   }
 }
 
-function makeFakeRequest(): HttpRequest {
+function makeFakeRequest (): HttpRequest {
   return {
     body: {
       name: 'any_name',
       email: 'any_email@mail.com',
       password: 'any_password',
-      passwordConfirmation: 'any_password',
-    },
+      passwordConfirmation: 'any_password'
+    }
   }
 }
 
@@ -49,7 +49,7 @@ type MakeSutType = {
   validationStub: Validation
 }
 
-function makeSut(): MakeSutType {
+function makeSut (): MakeSutType {
   const addAccountStub = makeAddAccount()
   const validationStub = makeValidation()
   const sut = new SignUpController(addAccountStub, validationStub)
@@ -57,7 +57,7 @@ function makeSut(): MakeSutType {
   return {
     sut,
     addAccountStub,
-    validationStub,
+    validationStub
   }
 }
 
@@ -70,7 +70,7 @@ describe('SignUp Controller', () => {
     expect(addSpy).toHaveBeenCalledWith({
       name: 'any_name',
       email: 'any_email@mail.com',
-      password: 'any_password',
+      password: 'any_password'
     })
   })
 

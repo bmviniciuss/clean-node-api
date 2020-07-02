@@ -2,9 +2,9 @@ import { MissingParamError } from '../../../errors'
 import { Validation } from '../../../protocols/Validation'
 import { ValidationComposite } from '../ValidationComposite'
 
-function makeValidation(): Validation {
+function makeValidation (): Validation {
   class ValidationStub implements Validation {
-    validate(input: any): Error {
+    validate (input: any): Error {
       return null
     }
   }
@@ -16,12 +16,12 @@ type MakeSutType = {
   validationStubs: Validation[]
 }
 
-function makeSut(): MakeSutType {
+function makeSut (): MakeSutType {
   const validationStubs = [makeValidation(), makeValidation()]
   const sut = new ValidationComposite(validationStubs)
   return {
     sut,
-    validationStubs,
+    validationStubs
   }
 }
 

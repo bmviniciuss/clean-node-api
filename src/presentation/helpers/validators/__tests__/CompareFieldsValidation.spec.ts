@@ -5,10 +5,10 @@ type MakeSutType = {
   sut: CompareFieldsValidation
 }
 
-function makeSut(): MakeSutType {
+function makeSut (): MakeSutType {
   const sut = new CompareFieldsValidation('field', 'toCompareField')
   return {
-    sut,
+    sut
   }
 }
 
@@ -23,7 +23,7 @@ describe('CompareFieldsValidation', () => {
     const { sut } = makeSut()
     const error = sut.validate({
       field: 'any_value',
-      toCompareField: 'wrong_value',
+      toCompareField: 'wrong_value'
     })
     expect(error).toEqual(new InvalidParamError('toCompareField'))
   })

@@ -12,10 +12,10 @@ describe('Body Parser middleware', () => {
     await request(app)
       .post('/test_body_parser')
       .send({
-        name: 'Vinicius Barbosa',
+        name: 'Vinicius Barbosa'
       })
       .expect({
-        name: 'Vinicius Barbosa',
+        name: 'Vinicius Barbosa'
       })
   })
 })

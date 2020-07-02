@@ -5,10 +5,10 @@ type MakeSutType = {
   sut: RequiredFieldValidation
 }
 
-function makeSut(): MakeSutType {
+function makeSut (): MakeSutType {
   const sut = new RequiredFieldValidation('field')
   return {
-    sut,
+    sut
   }
 }
 

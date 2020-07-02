@@ -2,9 +2,9 @@ import { InvalidParamError, MissingParamError, ServerError } from '../../../erro
 import { EmailValidator } from '../../../protocols/EmailValidator'
 import { EmailValidation } from '../EmailValidation'
 
-function makeEmailValidator(): EmailValidator {
+function makeEmailValidator (): EmailValidator {
   class EmailValidatorStub implements EmailValidator {
-    isValid(email: string): boolean {
+    isValid (email: string): boolean {
       return true
     }
   }
@@ -16,18 +16,18 @@ type MakeSutType = {
   emailValidatorStub: EmailValidator
 }
 
-function makeSut(): MakeSutType {
+function makeSut (): MakeSutType {
   const emailValidatorStub = makeEmailValidator()
   const sut = new EmailValidation('email', emailValidatorStub)
   return {
     sut,
-    emailValidatorStub,
+    emailValidatorStub
   }
 }
 
-function makeFakePayload() {
+function makeFakePayload () {
   return {
-    email: 'any_email@email.com',
+    email: 'any_email@email.com'
   }
 }
 

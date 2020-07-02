@@ -2,7 +2,7 @@ import {
   RequiredFieldValidation,
   CompareFieldsValidation,
   EmailValidation,
-  ValidationComposite,
+  ValidationComposite
 } from '../../../presentation/helpers/validators'
 import { EmailValidator } from '../../../presentation/protocols/EmailValidator'
 import { Validation } from '../../../presentation/protocols/Validation'
@@ -10,9 +10,9 @@ import { makeSignupValidation } from './makeSignupValidation'
 
 jest.mock('../../../presentation/helpers/validators/ValidationComposite')
 
-function makeEmailValidator(): EmailValidator {
+function makeEmailValidator (): EmailValidator {
   class EmailValidatorStub implements EmailValidator {
-    isValid(email: string): boolean {
+    isValid (email: string): boolean {
       return true
     }
   }

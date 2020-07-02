@@ -7,10 +7,10 @@ type MakeSutType = {
   sut: LogMongoRepository
 }
 
-function makeSut(): MakeSutType {
+function makeSut (): MakeSutType {
   const sut = new LogMongoRepository()
   return {
-    sut,
+    sut
   }
 }
 

@@ -4,20 +4,20 @@ import { EmailValidator } from '../protocols/EmailValidator'
 import { EmailValidatorAdapter } from './EmailValidatorAdapter'
 
 jest.mock('validator', () => ({
-  isEmail(): boolean {
+  isEmail (): boolean {
     return true
-  },
+  }
 }))
 
 type makeSutType = {
   sut: EmailValidator
 }
 
-function makeSut(): makeSutType {
+function makeSut (): makeSutType {
   const sut = new EmailValidatorAdapter()
 
   return {
-    sut,
+    sut
   }
 }
 

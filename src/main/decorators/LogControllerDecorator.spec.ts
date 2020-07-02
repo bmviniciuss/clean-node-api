@@ -4,9 +4,9 @@ import { serverError, OK } from '../../presentation/helpers/http'
 import { Controller, HttpRequest, HttpResponse } from '../../presentation/protocols'
 import { LogControllerDecorator } from './LogControllerDecorator'
 
-function makeLogErrorRepository(): LogErrorRepository {
+function makeLogErrorRepository (): LogErrorRepository {
   class LogErrorRepositoryStub implements LogErrorRepository {
-    async logError(stack: string): Promise<void> {
+    async logError (stack: string): Promise<void> {
       return new Promise((resolve) => resolve())
     }
   }
@@ -14,9 +14,9 @@ function makeLogErrorRepository(): LogErrorRepository {
   return new LogErrorRepositoryStub()
 }
 
-function makeControllerStub(): Controller {
+function makeControllerStub (): Controller {
   class ControllerStub implements Controller {
-    handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+    handle (httpRequest: HttpRequest): Promise<HttpResponse> {
       return new Promise((resolve) => resolve(OK(makeFakeAccount())))
     }
   }
@@ -24,27 +24,27 @@ function makeControllerStub(): Controller {
   return new ControllerStub()
 }
 
-function makeFakeAccount(): AccountModel {
+function makeFakeAccount (): AccountModel {
   return {
     id: 'valid_id',
     name: 'valid_name',
     email: 'valid_email@mail.com',
-    password: 'valid_password',
+    password: 'valid_password'
   }
 }
 
-function makeFakeRequest(): HttpRequest {
+function makeFakeRequest (): HttpRequest {
   return {
     body: {
       name: 'any_name',
       email: 'any_email@mail.com',
       password: 'any_password',
-      passwordConfirmation: 'any_password',
-    },
+      passwordConfirmation: 'any_password'
+    }
   }
 }
 
-function makeFakeServerError(): HttpResponse {
+function makeFakeServerError (): HttpResponse {
   const fakeError = new Error()
   fakeError.stack = 'any_stack'
   return serverError(fakeError)
@@ -56,7 +56,7 @@ type MakeSutReturnType = {
   logErrorRepositoryStub: LogErrorRepository
 }
 
-function makeSut(): MakeSutReturnType {
+function makeSut (): MakeSutReturnType {
   const controllerStub = makeControllerStub()
   const logErrorRepositoryStub = makeLogErrorRepository()
   const sut = new LogControllerDecorator(controllerStub, logErrorRepositoryStub)
@@ -64,7 +64,7 @@ function makeSut(): MakeSutReturnType {
   return {
     sut,
     controllerStub,
-    logErrorRepositoryStub,
+    logErrorRepositoryStub
   }
 }
 

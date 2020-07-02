@@ -1,9 +1,9 @@
 import { DbAddAccount } from './DbAddAccount'
 import { Encrypter, AddAccountModel, AccountModel, AddAccountRepository } from './DbAddAccountProtocols'
 
-function makeEncrypterStub(): Encrypter {
+function makeEncrypterStub (): Encrypter {
   class EncrypterStub implements Encrypter {
-    async encrypt(value: string): Promise<string> {
+    async encrypt (value: string): Promise<string> {
       return new Promise((resolve) => resolve('hashed_password'))
     }
   }
@@ -11,26 +11,26 @@ function makeEncrypterStub(): Encrypter {
   return new EncrypterStub()
 }
 
-function makeFakeAccount(): AccountModel {
+function makeFakeAccount (): AccountModel {
   return {
     id: 'valid_id',
     name: 'valid_name',
     email: 'valid_email',
-    password: 'hashed_password',
+    password: 'hashed_password'
   }
 }
 
-function makeFakeAccountData(): AddAccountModel {
+function makeFakeAccountData (): AddAccountModel {
   return {
     name: 'valid_name',
     email: 'valid_email',
-    password: 'valid_password',
+    password: 'valid_password'
   }
 }
 
-function makeAddAccountReposiroty(): AddAccountRepository {
+function makeAddAccountReposiroty (): AddAccountRepository {
   class AddAccountRepositoryStub implements AddAccountRepository {
-    async add(account: AddAccountModel): Promise<AccountModel> {
+    async add (account: AddAccountModel): Promise<AccountModel> {
       return new Promise((resolve) => resolve(makeFakeAccount()))
     }
   }
@@ -44,7 +44,7 @@ type MakeSutReturn = {
   addAccountRepositoryStub: AddAccountRepository
 }
 
-function makeSut(): MakeSutReturn {
+function makeSut (): MakeSutReturn {
   const encrypterStub = makeEncrypterStub()
   const addAccountRepositoryStub = makeAddAccountReposiroty()
   const sut = new DbAddAccount(encrypterStub, addAccountRepositoryStub)
@@ -52,7 +52,7 @@ function makeSut(): MakeSutReturn {
   return {
     sut,
     encrypterStub,
-    addAccountRepositoryStub,
+    addAccountRepositoryStub
   }
 }
 
@@ -83,7 +83,7 @@ describe('DbAddAccount usecase', () => {
     expect(addSpy).toHaveBeenCalledWith({
       name: 'valid_name',
       email: 'valid_email',
-      password: 'hashed_password',
+      password: 'hashed_password'
     })
   })
 

@@ -7,7 +7,7 @@ import { Controller } from '../../../presentation/protocols'
 import { LogControllerDecorator } from '../../decorators/LogControllerDecorator'
 import { makeSignupValidation } from './makeSignupValidation'
 
-export function makeSignupController(): Controller {
+export function makeSignupController (): Controller {
   const salt = 12
   const encrypter = new BcrypterAdapter(salt)
   const addAccountRepository = new AccountMongoRepository()

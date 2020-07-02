@@ -3,9 +3,9 @@ import bcrypt from 'bcrypt'
 import { BcrypterAdapter } from './BcryptAdapter'
 
 jest.mock('bcrypt', () => ({
-  async hash(): Promise<string> {
+  async hash (): Promise<string> {
     return new Promise((resolve) => resolve('hash'))
-  },
+  }
 }))
 
 type MakeSutType = {
@@ -13,12 +13,12 @@ type MakeSutType = {
   salt: number
 }
 
-function makeSut(salt = 12): MakeSutType {
+function makeSut (salt = 12): MakeSutType {
   const sut = new BcrypterAdapter(salt)
 
   return {
     sut,
-    salt,
+    salt
   }
 }
 

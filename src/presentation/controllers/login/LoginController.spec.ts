@@ -3,18 +3,18 @@ import { badRequest, serverError, unauthorized, OK } from '../../helpers/http'
 import { LoginController } from './LoginController'
 import { Authentication, HttpRequest, Validation, AuthenticationModel } from './loginProtocols'
 
-function makeValidation(): Validation {
+function makeValidation (): Validation {
   class ValidationStub implements Validation {
-    validate(input: any): Error {
+    validate (input: any): Error {
       return null
     }
   }
   return new ValidationStub()
 }
 
-function makeAuthentication(): Authentication {
+function makeAuthentication (): Authentication {
   class AuthenticationStub implements Authentication {
-    auth(authentication: AuthenticationModel): Promise<string> {
+    auth (authentication: AuthenticationModel): Promise<string> {
       return new Promise((resolve) => resolve('any_token'))
     }
   }
@@ -22,12 +22,12 @@ function makeAuthentication(): Authentication {
   return new AuthenticationStub()
 }
 
-function makeFakeRequest(): HttpRequest {
+function makeFakeRequest (): HttpRequest {
   return {
     body: {
       email: 'any_email@mail.com',
-      password: 'any_password',
-    },
+      password: 'any_password'
+    }
   }
 }
 
@@ -37,7 +37,7 @@ type MakeSutType = {
   authenticationStub: Authentication
 }
 
-function makeSut(): MakeSutType {
+function makeSut (): MakeSutType {
   const authenticationStub = makeAuthentication()
   const validationStub = makeValidation()
 
@@ -46,7 +46,7 @@ function makeSut(): MakeSutType {
   return {
     sut,
     authenticationStub,
-    validationStub,
+    validationStub
   }
 }
 
@@ -70,7 +70,7 @@ describe('LoginController', () => {
     jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(
       new Promise((resolve, reject) => {
         reject(new Error())
-      }),
+      })
     )
     const httpReponse = await sut.handle(makeFakeRequest())
     expect(httpReponse).toEqual(serverError(new Error()))
