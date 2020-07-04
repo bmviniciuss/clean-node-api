@@ -1,5 +1,6 @@
 import { AccountModel } from '../../../domain/models/Account'
 import { HashComparer } from '../../protocols/cryptography/HashComparer'
+import { TokenGenerator } from '../../protocols/cryptography/TokenGenerator'
 import { LoadAccountByEmailRepository } from '../../protocols/db/LoadAccountByEmailRepository'
 import { DbAuthentication } from './DbAuthentication'
 
@@ -31,21 +32,33 @@ function makeHashComparer () {
   return new HashComparerStub()
 }
 
+function makeTokenGenerator () {
+  class TokenGeneratorStub implements TokenGenerator {
+    generate (id: string): Promise<string> {
+      return new Promise((resolve) => resolve('any_token'))
+    }
+  }
+  return new TokenGeneratorStub()
+}
+
 type MakeSutTypes = {
   sut: DbAuthentication
   loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
   hashComparerStub: HashComparer
+  tokenGeneratorStub: TokenGenerator
 }
 
 function makeSut (): MakeSutTypes {
   const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository()
   const hashComparerStub = makeHashComparer()
-  const sut = new DbAuthentication(loadAccountByEmailRepositoryStub, hashComparerStub)
+  const tokenGeneratorStub = makeTokenGenerator()
+  const sut = new DbAuthentication(loadAccountByEmailRepositoryStub, hashComparerStub, tokenGeneratorStub)
 
   return {
     sut,
     loadAccountByEmailRepositoryStub,
-    hashComparerStub
+    hashComparerStub,
+    tokenGeneratorStub
   }
 }
 
@@ -97,5 +110,12 @@ describe('DbAuthentication', () => {
     jest.spyOn(hashComparerStub, 'compare').mockResolvedValueOnce(false)
     const accessToken = await sut.auth(makeFakeAuthentication())
     expect(accessToken).toBeNull()
+  })
+
+  it('Should call TokenGenerator with correct id', async () => {
+    const { sut, tokenGeneratorStub } = makeSut()
+    const generateSpy = jest.spyOn(tokenGeneratorStub, 'generate')
+    await sut.auth(makeFakeAuthentication())
+    expect(generateSpy).toHaveBeenCalledWith('any_id')
   })
 })
