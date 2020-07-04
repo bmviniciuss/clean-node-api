@@ -1,9 +1,13 @@
-import { AccountModel } from '../../../domain/models/Account'
-import { HashComparer } from '../../protocols/cryptography/HashComparer'
-import { TokenGenerator } from '../../protocols/cryptography/TokenGenerator'
-import { LoadAccountByEmailRepository } from '../../protocols/db/LoadAccountByEmailRepository'
-import { UpdateAccessTokenRepository } from '../../protocols/db/UpdateAccessTokenRepository'
+
 import { DbAuthentication } from './DbAuthentication'
+import {
+  AccountModel,
+  LoadAccountByEmailRepository,
+  HashComparer,
+  TokenGenerator,
+  UpdateAccessTokenRepository,
+  AuthenticationModel
+} from './DbAuthenticationProtocols'
 
 function makefakeAccount (): AccountModel {
   return {
@@ -75,7 +79,7 @@ function makeSut (): MakeSutTypes {
   }
 }
 
-function makeFakeAuthentication () {
+function makeFakeAuthentication ():AuthenticationModel {
   return {
     email: 'any_email@mail.com',
     password: 'any_password'
