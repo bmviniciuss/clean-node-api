@@ -32,19 +32,14 @@ function makeSut (): MakeSutTypes {
   }
 }
 
-function makeAccount () {
-  return {
-    email: 'any_mail@email.com',
-    password: 'any_password'
-  }
-}
-
 describe('DbAuthentication', () => {
   it('Should call LoadAccountByEmailRepository with correct email', async () => {
     const { sut, loadAccountByEmailRepositoryStub } = makeSut()
     const loadSpy = jest.spyOn(loadAccountByEmailRepositoryStub, 'load')
-    const account = makeAccount()
-    await sut.auth(account)
-    expect(loadSpy).toHaveBeenCalledWith(account.email)
+    await sut.auth({
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    })
+    expect(loadSpy).toHaveBeenCalledWith('any_email@mail.com')
   })
 })
