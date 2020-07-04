@@ -16,7 +16,7 @@ function makefakeAccount (): AccountModel {
 
 function makeLoadAccountByEmailRepository ():LoadAccountByEmailRepository {
   class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
-    load (email: string): Promise<AccountModel> {
+    async load (email: string): Promise<AccountModel> {
       return new Promise((resolve) => resolve(makefakeAccount()))
     }
   }
@@ -25,7 +25,7 @@ function makeLoadAccountByEmailRepository ():LoadAccountByEmailRepository {
 
 function makeHashComparer () {
   class HashComparerStub implements HashComparer {
-    compare (value: string, hash: string): Promise<boolean> {
+    async compare (value: string, hash: string): Promise<boolean> {
       return new Promise((resolve) => resolve(true))
     }
   }
@@ -35,7 +35,7 @@ function makeHashComparer () {
 
 function makeTokenGenerator () {
   class TokenGeneratorStub implements TokenGenerator {
-    generate (id: string): Promise<string> {
+    async generate (id: string): Promise<string> {
       return new Promise((resolve) => resolve('any_token'))
     }
   }
@@ -44,7 +44,7 @@ function makeTokenGenerator () {
 
 function makeUpdateAccessTokenRepositoryStub ():UpdateAccessTokenRepository {
   class UpdateAccessTokenRepositoryStub implements UpdateAccessTokenRepository {
-    update (id: string, token: string): Promise<void> {
+    async update (id: string, token: string): Promise<void> {
       return new Promise((resolve) => resolve())
     }
   }
