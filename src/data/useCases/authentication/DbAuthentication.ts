@@ -9,7 +9,7 @@ export class DbAuthentication implements Authentication {
     const { email, password } = authentication
     const account = await this.loadAccountByEmailRepository.load(email)
     if (account) {
-      this.hashComparer.compare(password, account.password)
+      await this.hashComparer.compare(password, account.password)
     }
     return null
   }
