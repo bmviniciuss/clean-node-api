@@ -12,10 +12,10 @@ services:
   
   api:
     container_name: api-container
-    build: .
+    image: node:12-alpine
+    working_dir: /usr/src/clean-node-api
     restart: always
-    image: clean-node-api
-    command: yarn start
+    command: sh -c "yarn --prod && yarn start"
     volumes:
       - ./dist:/usr/src/clean-node-api/dist
       - ./package.json:/usr/src/clean-node-api/package.json
