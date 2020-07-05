@@ -2,7 +2,21 @@
   "name": "clean-node-api",
   "version": "1.1.0",
   "main": "index.js",
+  "repository": "https://github.com/bmviniciuss/clean-node-api",
+  "author": "Vinicius Barbosa de Medeiros",
   "license": "MIT",
+  "description": "NodeJs Rest API using TDD, Clean Architecture and TypeScript",
+  "scripts": {
+    "start": "sucrase-node src/main/server.ts",
+    "lint": "eslint './**/*.{js,ts}' --quiet",
+    "lint:fix": "eslint './**/*.{js,ts}' --quiet --fix",
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
+    "test:verbose": "jest --passWithNoTests --runInBand --watch",
+    "test:unit": "yarn test --watch -c ./jest-unit.config.js",
+    "test:integration": "yarn test --watch -c ./jest-integration.config.js",
+    "test:staged": "yarn test --findRelatedTests",
+    "test:ci": "yarn test --coverage"
+  },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.1.5",
     "@types/bcrypt": "^3.0.0",
@@ -42,16 +56,5 @@
     "mongodb": "^3.5.8",
     "typescript": "~3.8.0",
     "validator": "^13.0.0"
-  },
-  "scripts": {
-    "start": "sucrase-node src/main/server.ts",
-    "lint": "eslint './**/*.{js,ts}' --quiet",
-    "lint:fix": "eslint './**/*.{js,ts}' --quiet --fix",
-    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
-    "test:verbose": "jest --passWithNoTests --runInBand --watch",
-    "test:unit": "yarn test --watch -c ./jest-unit.config.js",
-    "test:integration": "yarn test --watch -c ./jest-integration.config.js",
-    "test:staged": "yarn test --findRelatedTests",
-    "test:ci": "yarn test --coverage"
   }
 }
