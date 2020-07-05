@@ -10,7 +10,8 @@
     "start": "node dist/main/server.js",
     "prebuild": "rimraf dist",
     "build": "tsc",
-    "dev": "sucrase-node src/main/server.ts",
+    "preup": "yarn build",
+    "dev": "docker-compose",
     "lint": "eslint 'src/**' --quiet",
     "lint:fix": "eslint 'src/**' --quiet --fix",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
@@ -47,7 +48,6 @@
     "lint-staged": "^10.2.6",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
-    "sucrase": "^3.15.0",
     "supertest": "^4.0.2",
     "ts-jest": "^26.0.0"
   },
