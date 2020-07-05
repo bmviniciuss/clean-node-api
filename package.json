@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node dist/main/server.js",
     "build": "rimraf dist && tsc",
-    "debug": "node --inspect=0.0.0.0:9222 --nolazy dist/main/server.js",
+    "build:watch": "tsc -w",
+    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
     "dev": "docker-compose",
     "up": "yarn build && yarn dev up",
     "down": "yarn dev down",
@@ -59,6 +60,7 @@
     "fast-glob": "^3.2.2",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.8",
+    "nodemon": "^2.0.4",
     "typescript": "~3.8.0",
     "validator": "^13.0.0"
   },

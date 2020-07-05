@@ -15,9 +15,9 @@ services:
     image: node:12-alpine
     working_dir: /usr/src/clean-node-api
     restart: always
-    command: sh -c "yarn --prod && yarn start"
+    command: sh -c "yarn --prod && yarn debug"
     volumes:
-      - ./dist:/usr/src/clean-node-api/dist
+      - ./dist/:/usr/src/clean-node-api/dist/
       - ./package.json:/usr/src/clean-node-api/package.json
     ports:
       - "5050:5050"
