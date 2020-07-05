@@ -60,5 +60,8 @@
     "mongodb": "^3.5.8",
     "typescript": "~3.8.0",
     "validator": "^13.0.0"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
