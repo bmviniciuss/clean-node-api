@@ -22,9 +22,6 @@ jobs:
       - name: Check Linting
         run: yarn lint
 
-      - name: Build
-        run: yarn build
-
       - name: Test
         run: yarn test:ci
         env:
