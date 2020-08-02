@@ -1,27 +1,30 @@
 version: "3"
 
 services: 
-  mongo:
-    container_name: mongo-container
+  mongodb:
+    container_name: mongodb-container
     image: mongo:3
     restart: always
     volumes:
-      - ./data:/data/db
+      - ./mongodb:/data/db
     ports:
       - "27017:27017"
-  
-  api:
-    container_name: api-container
-    image: node:12-alpine
-    working_dir: /usr/src/clean-node-api
-    restart: always
-    command: sh -c "yarn --prod && yarn debug"
-    volumes:
-      - ./dist/:/usr/src/clean-node-api/dist/
-      - ./package.json:/usr/src/clean-node-api/package.json
+  app:
+    build: .
+    command: yarn dev:watch
     ports:
-      - "5050:5050"
-      - "9222:9222"
+      - 5050:5050
+    environment:
+      MONGO_URL: mongodb://mongodb:27017/clean-node-api
+      PORT: 5050
+      JWT_SECRET: 3ccd74ad43d8ce7afe36f2a71a365e6a6381248d2c02654177e568e7d40e590f
+    volumes:
+      - ./:/app
+      - app_node_modules:/app/node_modules
     links:
-      - mongo
-  
+      - mongodb
+    depends_on:
+      - mongodb
+
+volumes:
+  app_node_modules: {}
