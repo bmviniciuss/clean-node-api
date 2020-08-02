@@ -7,15 +7,12 @@
   "license": "MIT",
   "description": "NodeJs Rest API using TDD, Clean Architecture and TypeScript",
   "scripts": {
-    "start": "node dist/main/server.js",
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && npx typescript",
     "build:watch": "npx typescript -w",
     "dev": "npx concurrently \"yarn build\" \"yarn dev:run\"",
     "dev:watch": "npx concurrently \"yarn build:watch\" \"yarn dev:run\"",
-    "dev:run": "yarn nodemon ./dist/main/server.js",
-    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
-    "up": "yarn build && yarn dev up",
-    "down": "yarn dev down",
+    "dev:run": "npx nodemon ./dist/main/server.js",
+    "dev:debug": "npx nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
     "lint": "eslint 'src/**' --quiet",
     "lint:fix": "eslint 'src/**' --quiet --fix",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
@@ -55,8 +52,7 @@
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "supertest": "^4.0.2",
-    "ts-jest": "^26.0.0",
-    "ts-node-dev": "^1.0.0-pre.56"
+    "ts-jest": "^26.0.0"
   },
   "dependencies": {
     "@types/node": "^14.0.5",
