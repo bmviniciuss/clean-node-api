@@ -1,7 +1,8 @@
+import { AuthenticationDTO } from '../../../domain/dto/AuthenticationDTO'
 import { MissingParamError } from '../../errors'
 import { badRequest, serverError, unauthorized, OK } from '../../helpers/http'
 import { LoginController } from './LoginController'
-import { Authentication, HttpRequest, Validation, AuthenticationModel } from './loginProtocols'
+import { Authentication, HttpRequest, Validation } from './loginProtocols'
 
 function makeValidation (): Validation {
   class ValidationStub implements Validation {
@@ -14,7 +15,7 @@ function makeValidation (): Validation {
 
 function makeAuthentication (): Authentication {
   class AuthenticationStub implements Authentication {
-    auth (authentication: AuthenticationModel): Promise<string> {
+    async execute (authentication: AuthenticationDTO): Promise<string> {
       return new Promise((resolve) => resolve('any_token'))
     }
   }
@@ -53,21 +54,21 @@ function makeSut (): MakeSutType {
 describe('LoginController', () => {
   it('Should calll Authentication with correct values', async () => {
     const { sut, authenticationStub } = makeSut()
-    const authSpy = jest.spyOn(authenticationStub, 'auth')
+    const authSpy = jest.spyOn(authenticationStub, 'execute')
     await sut.handle(makeFakeRequest())
     expect(authSpy).toHaveBeenCalledWith({ email: 'any_email@mail.com', password: 'any_password' })
   })
 
   it('Should return 401 if invalid credential are provided', async () => {
     const { sut, authenticationStub } = makeSut()
-    jest.spyOn(authenticationStub, 'auth').mockResolvedValueOnce(null)
+    jest.spyOn(authenticationStub, 'execute').mockResolvedValueOnce(null)
     const httpReponse = await sut.handle(makeFakeRequest())
     expect(httpReponse).toEqual(unauthorized())
   })
 
   it('Should return 500 if Authentication throws', async () => {
     const { sut, authenticationStub } = makeSut()
-    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(
+    jest.spyOn(authenticationStub, 'execute').mockReturnValueOnce(
       new Promise((resolve, reject) => {
         reject(new Error())
       })
