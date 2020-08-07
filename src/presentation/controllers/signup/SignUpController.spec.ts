@@ -1,7 +1,7 @@
 import { AddAccountDTO } from '../../../domain/dto/AddAccountDTO'
 import { AuthenticationDTO } from '../../../domain/dto/AuthenticationDTO'
-import { ServerError, MissingParamError } from '../../errors'
-import { OK, serverError, badRequest } from '../../helpers/http'
+import { ServerError, MissingParamError, EmailInUseError } from '../../errors'
+import { OK, serverError, badRequest, forbidden } from '../../helpers/http'
 import { HttpRequest } from '../../protocols'
 import { SignUpController } from './SignUpController'
 import { AddAccount, AccountModel, Validation, Authentication } from './SignupProtocols'
@@ -130,5 +130,12 @@ describe('SignUp Controller', () => {
     const { sut } = makeSut()
     const httpReponse = await sut.handle(makeFakeRequest())
     expect(httpReponse).toEqual(OK({ accessToken: 'any_token' }))
+  })
+
+  it('should return 403 if AddAccount returns null', async () => {
+    const { sut, addAccountStub } = makeSut()
+    jest.spyOn(addAccountStub, 'execute').mockResolvedValueOnce(null)
+    const httpReponse = await sut.handle(makeFakeRequest())
+    expect(httpReponse).toEqual(forbidden(new EmailInUseError()))
   })
 })
