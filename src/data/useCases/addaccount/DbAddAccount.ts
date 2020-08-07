@@ -15,7 +15,9 @@ export class DbAddAccount implements AddAccount {
   ) {}
 
   async execute (accountData: AddAccountDTO): Promise<AccountModel> {
-    await this.loadAccountByEmailRepository.loadByEmail(accountData.email)
+    const exists = await this.loadAccountByEmailRepository.loadByEmail(accountData.email)
+    if (exists) return null
+
     const hashedPassword = await this.hasher.hash(accountData.password)
     const account = await this.addAccountRepository.add({
       ...accountData,
