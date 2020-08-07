@@ -1,4 +1,4 @@
-import { MissingParamError } from '../../../errors'
+import { MissingParamError } from '../../../presentation/errors'
 import { RequiredFieldValidation } from '../RequiredFieldValidation'
 
 type MakeSutType = {
