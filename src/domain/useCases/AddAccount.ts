@@ -1,11 +1,6 @@
+import { AddAccountDTO } from '../dto/AddAccountDTO'
 import { AccountModel } from '../models/Account'
 
-export interface AddAccountModel {
-  name: string
-  email: string
-  password: string
-}
-
 export interface AddAccount {
-  add(account: AddAccountModel): Promise<AccountModel>
+  execute(account: AddAccountDTO): Promise<AccountModel>
 }

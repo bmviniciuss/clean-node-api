@@ -3,9 +3,9 @@ import {
   HashComparer,
   Encrypter,
   UpdateAccessTokenRepository,
-  AuthenticationModel,
   Authentication
 } from './DbAuthenticationProtocols'
+import { AuthenticationDTO } from '../../../domain/dto/AuthenticationDTO'
 
 export class DbAuthentication implements Authentication {
   constructor (
@@ -15,7 +15,7 @@ export class DbAuthentication implements Authentication {
     private readonly updateAccessTokenRepository: UpdateAccessTokenRepository
   ) {}
 
-  async auth (authentication: AuthenticationModel): Promise<string> {
+  async execute (authentication: AuthenticationDTO): Promise<string> {
     const { email, password } = authentication
     const account = await this.loadAccountByEmailRepository.loadByEmail(email)
     if (account) {

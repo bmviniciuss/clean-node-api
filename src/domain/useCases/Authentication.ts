@@ -1,8 +1,5 @@
-export interface AuthenticationModel {
-  email: string
-  password: string
-}
+import { AuthenticationDTO } from '../dto/AuthenticationDTO'
 
 export interface Authentication {
-  auth(authentication: AuthenticationModel): Promise<string>
+  execute(authentication: AuthenticationDTO): Promise<string>
 }

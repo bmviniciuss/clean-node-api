@@ -1,12 +1,13 @@
+import { AddAccountDTO } from '../../../domain/dto/AddAccountDTO'
 import { ServerError, MissingParamError } from '../../errors'
 import { OK, serverError, badRequest } from '../../helpers/http'
 import { HttpRequest } from '../../protocols'
 import { SignUpController } from './SignUpController'
-import { AddAccount, AddAccountModel, AccountModel, Validation } from './SignupProtocols'
+import { AddAccount, AccountModel, Validation } from './SignupProtocols'
 
 function makeAddAccount (): AddAccount {
   class AddAccountStub implements AddAccount {
-    async add (account: AddAccountModel): Promise<AccountModel> {
+    async execute (account: AddAccountDTO): Promise<AccountModel> {
       return new Promise((resolve) => resolve(makeFakeAccount()))
     }
   }
@@ -64,7 +65,7 @@ function makeSut (): MakeSutType {
 describe('SignUp Controller', () => {
   it('should call AddAccount with correct values', async () => {
     const { sut, addAccountStub } = makeSut()
-    const addSpy = jest.spyOn(addAccountStub, 'add')
+    const addSpy = jest.spyOn(addAccountStub, 'execute')
     await sut.handle(makeFakeRequest())
 
     expect(addSpy).toHaveBeenCalledWith({
@@ -76,7 +77,7 @@ describe('SignUp Controller', () => {
 
   it('should return 500 if AddAccount throws', async () => {
     const { sut, addAccountStub } = makeSut()
-    jest.spyOn(addAccountStub, 'add').mockRejectedValueOnce(new Error())
+    jest.spyOn(addAccountStub, 'execute').mockRejectedValueOnce(new Error())
     const httpReponse = await sut.handle(makeFakeRequest())
 
     expect(httpReponse).toEqual(serverError(new ServerError(null)))
