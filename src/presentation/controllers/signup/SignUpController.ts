@@ -30,6 +30,7 @@ export class SignUpController implements Controller {
       const accessToken = await this.authentication.execute({ email, password })
       return OK({ accessToken })
     } catch (error) {
+      console.log('ERROR', error)
       return serverError(error)
     }
   }
