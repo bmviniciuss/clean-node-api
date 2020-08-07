@@ -1,6 +1,6 @@
+import { AddAccountDTO } from '../../../domain/dto/AddAccountDTO'
 import { DbAddAccount } from './DbAddAccount'
 import { Hasher, AccountModel, AddAccountRepository } from './DbAddAccountProtocols'
-import { AddAccountDTO } from '../../../domain/dto/AddAccountDTO'
 
 function makeHasherStub (): Hasher {
   class HasherStub implements Hasher {

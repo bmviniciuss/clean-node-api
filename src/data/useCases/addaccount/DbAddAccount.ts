@@ -1,10 +1,10 @@
+import { AddAccountDTO } from '../../../domain/dto/AddAccountDTO'
 import {
   AddAccount,
   Hasher,
   AccountModel,
   AddAccountRepository
 } from './DbAddAccountProtocols'
-import { AddAccountDTO } from '../../../domain/dto/AddAccountDTO'
 
 export class DbAddAccount implements AddAccount {
   constructor (
