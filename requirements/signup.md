@@ -17,7 +17,7 @@
 - [x] Return **400** if **name**, **email**, **password** or **passwordConfirmation** is not provided 
 - [x] Return **400** if **password** and **passwordConfirmation** doesn't match
 - [x] Return **400** if a invalid **email** is provided
-- [ ] Return **403** if provided **email** is already in use
+- [x] Return **403** if provided **email** is already in use
 - [x] Return **500** if an error occurs while hashing the password
 - [x] Return **500** if an error occurs while creating the user account
 - [x] Return **500** if an error occurs while generating the access token
