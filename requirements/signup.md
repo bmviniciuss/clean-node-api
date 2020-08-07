@@ -5,7 +5,7 @@
 - [x] Validate required fields: **name**, **email**, **password** and **passwordConfirmation**
 - [x] Validate **password** and **passwordConfirmation** are equals
 - [x] Validate **email** is valid
-- [ ] Check if **email** is unique
+- [x] Check if **email** is unique
 - [x] Make password hash
 - [x] Create a user account with provided data and password hash
 - [x] Generate a access token from user ID
