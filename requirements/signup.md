@@ -8,9 +8,9 @@
 - [ ] Check if **email** is unique
 - [x] Make password hash
 - [x] Create a user account with provided data and password hash
-- [ ] Generate a access token from user ID
-- [ ] Update user data with access token
-- [ ] Return 200 with access token
+- [x] Generate a access token from user ID
+- [x] Update user data with access token
+- [x] Return 200 with access token
 
 > ## Exceptions
 - [x] Return **404** if `API` doesn't exist.
@@ -20,5 +20,5 @@
 - [ ] Return **403** if provided **email** is already in use
 - [x] Return **500** if an error occurs while hashing the password
 - [x] Return **500** if an error occurs while creating the user account
-- [ ] Return **500** if an error occurs while generating the access token
-- [ ] Return **500** if an error occurs while updating the user's access token
+- [x] Return **500** if an error occurs while generating the access token
+- [x] Return **500** if an error occurs while updating the user's access token
