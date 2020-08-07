@@ -5,9 +5,9 @@ import {
   AccountModel,
   AddAccountRepository,
   LoadAccountByEmailRepository
-} from './DbAddAccountProtocols'
+} from './DBAddAccountProtocols'
 
-export class DbAddAccount implements AddAccount {
+export class DBAddAccount implements AddAccount {
   constructor (
     private readonly hasher: Hasher,
     private readonly addAccountRepository: AddAccountRepository,

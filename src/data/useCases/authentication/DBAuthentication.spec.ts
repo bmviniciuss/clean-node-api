@@ -1,13 +1,13 @@
 
 import { AuthenticationDTO } from '../../../domain/dto/AuthenticationDTO'
-import { DbAuthentication } from './DbAuthentication'
+import { DBAuthentication } from './DBAuthentication'
 import {
   AccountModel,
   LoadAccountByEmailRepository,
   HashComparer,
   Encrypter,
   UpdateAccessTokenRepository
-} from './DbAuthenticationProtocols'
+} from './DBAuthenticationProtocols'
 
 function makefakeAccount (): AccountModel {
   return {
@@ -56,7 +56,7 @@ function makeUpdateAccessTokenRepositoryStub ():UpdateAccessTokenRepository {
 }
 
 type MakeSutTypes = {
-  sut: DbAuthentication
+  sut: DBAuthentication
   loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
   hashComparerStub: HashComparer
   encrypterStub: Encrypter
@@ -68,7 +68,7 @@ function makeSut (): MakeSutTypes {
   const hashComparerStub = makeHashComparer()
   const encrypterStub = makeEncrypter()
   const updateAccessTokenRepositoryStub = makeUpdateAccessTokenRepositoryStub()
-  const sut = new DbAuthentication(loadAccountByEmailRepositoryStub, hashComparerStub, encrypterStub, updateAccessTokenRepositoryStub)
+  const sut = new DBAuthentication(loadAccountByEmailRepositoryStub, hashComparerStub, encrypterStub, updateAccessTokenRepositoryStub)
 
   return {
     sut,
@@ -86,7 +86,7 @@ function makeFakeAuthentication ():AuthenticationDTO {
   }
 }
 
-describe('DbAuthentication', () => {
+describe('DBAuthentication', () => {
   it('Should call LoadAccountByEmailRepository with correct email', async () => {
     const { sut, loadAccountByEmailRepositoryStub } = makeSut()
     const loadSpy = jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail')
@@ -143,7 +143,7 @@ describe('DbAuthentication', () => {
     await expect(promise).rejects.toThrow()
   })
 
-  it('Should DbAuthentication returns a token on success', async () => {
+  it('Should DBAuthentication returns a token on success', async () => {
     const { sut } = makeSut()
     const accessToken = await sut.execute(makeFakeAuthentication())
     expect(accessToken).toBe('any_token')
