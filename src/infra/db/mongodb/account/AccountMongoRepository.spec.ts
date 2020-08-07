@@ -1,6 +1,6 @@
 import { Collection } from 'mongodb'
 
-import { AddAccountModel } from '../../../../domain/useCases/AddAccount'
+import { AddAccountDTO } from '../../../../domain/dto/AddAccountDTO'
 import { MongoHelper } from '../helpers/mongoHelper'
 import { AccountMongoRepository } from './AccountMongoRepository'
 
@@ -50,7 +50,7 @@ describe('Account Mongo Repository', () => {
   it('Should return an account on loadByEmail success', async () => {
     const { sut } = makeSut()
 
-    const accountData:AddAccountModel = {
+    const accountData:AddAccountDTO = {
       name: 'any_name',
       email: 'any_email@mail.com',
       password: 'any_password'

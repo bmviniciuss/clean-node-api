@@ -1,12 +1,13 @@
+import { AddAccountDTO } from '../../../domain/dto/AddAccountDTO'
 import { ServerError, MissingParamError } from '../../errors'
 import { OK, serverError, badRequest } from '../../helpers/http'
 import { HttpRequest } from '../../protocols'
 import { SignUpController } from './SignUpController'
-import { AddAccount, AddAccountModel, AccountModel, Validation } from './SignupProtocols'
+import { AddAccount, AccountModel, Validation } from './SignupProtocols'
 
 function makeAddAccount (): AddAccount {
   class AddAccountStub implements AddAccount {
-    async execute (account: AddAccountModel): Promise<AccountModel> {
+    async execute (account: AddAccountDTO): Promise<AccountModel> {
       return new Promise((resolve) => resolve(makeFakeAccount()))
     }
   }
