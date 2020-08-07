@@ -1,6 +1,6 @@
 import { AddAccountDTO } from '../../../domain/dto/AddAccountDTO'
-import { DbAddAccount } from './DbAddAccount'
-import { Hasher, AccountModel, AddAccountRepository, LoadAccountByEmailRepository } from './DbAddAccountProtocols'
+import { DBAddAccount } from './DBAddAccount'
+import { Hasher, AccountModel, AddAccountRepository, LoadAccountByEmailRepository } from './DBAddAccountProtocols'
 
 function makeLoadAccountByEmailRepository ():LoadAccountByEmailRepository {
   class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
@@ -49,7 +49,7 @@ function makeAddAccountReposiroty (): AddAccountRepository {
 }
 
 type MakeSutReturn = {
-  sut: DbAddAccount
+  sut: DBAddAccount
   hasherStub: Hasher
   addAccountRepositoryStub: AddAccountRepository
   loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
@@ -60,7 +60,7 @@ function makeSut (): MakeSutReturn {
   const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository()
   const hasherStub = makeHasherStub()
   const addAccountRepositoryStub = makeAddAccountReposiroty()
-  const sut = new DbAddAccount(hasherStub, addAccountRepositoryStub, loadAccountByEmailRepositoryStub)
+  const sut = new DBAddAccount(hasherStub, addAccountRepositoryStub, loadAccountByEmailRepositoryStub)
 
   return {
     sut,
