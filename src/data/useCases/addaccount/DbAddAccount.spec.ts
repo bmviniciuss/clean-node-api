@@ -60,21 +60,21 @@ describe('DbAddAccount usecase', () => {
   it('Should call Hasher with correct password', async () => {
     const { sut, hasherStub } = makeSut()
     const hashSpy = jest.spyOn(hasherStub, 'hash')
-    await sut.add(makeFakeAccountData())
+    await sut.execute(makeFakeAccountData())
     expect(hashSpy).toHaveBeenCalledWith('valid_password')
   })
 
   it('Should throw if Hasher throws', async () => {
     const { sut, hasherStub } = makeSut()
     jest.spyOn(hasherStub, 'hash').mockRejectedValueOnce(new Error())
-    const promise = sut.add(makeFakeAccountData())
+    const promise = sut.execute(makeFakeAccountData())
     await expect(promise).rejects.toThrow()
   })
 
   it('Should call AddAccountRepository with correct values', async () => {
     const { sut, addAccountRepositoryStub } = makeSut()
     const addSpy = jest.spyOn(addAccountRepositoryStub, 'add')
-    await sut.add(makeFakeAccountData())
+    await sut.execute(makeFakeAccountData())
     expect(addSpy).toHaveBeenCalledWith({
       name: 'valid_name',
       email: 'valid_email',
@@ -85,13 +85,13 @@ describe('DbAddAccount usecase', () => {
   it('Should throw if AddAccountRepository throws', async () => {
     const { sut, addAccountRepositoryStub } = makeSut()
     jest.spyOn(addAccountRepositoryStub, 'add').mockRejectedValueOnce(new Error())
-    const promise = sut.add(makeFakeAccountData())
+    const promise = sut.execute(makeFakeAccountData())
     await expect(promise).rejects.toThrow()
   })
 
   it('Should return an account on success', async () => {
     const { sut } = makeSut()
-    const account = await sut.add(makeFakeAccountData())
+    const account = await sut.execute(makeFakeAccountData())
     expect(account).toEqual(makeFakeAccount())
   })
 })

@@ -6,7 +6,7 @@ import { AddAccount, AddAccountModel, AccountModel, Validation } from './SignupP
 
 function makeAddAccount (): AddAccount {
   class AddAccountStub implements AddAccount {
-    async add (account: AddAccountModel): Promise<AccountModel> {
+    async execute (account: AddAccountModel): Promise<AccountModel> {
       return new Promise((resolve) => resolve(makeFakeAccount()))
     }
   }
@@ -64,7 +64,7 @@ function makeSut (): MakeSutType {
 describe('SignUp Controller', () => {
   it('should call AddAccount with correct values', async () => {
     const { sut, addAccountStub } = makeSut()
-    const addSpy = jest.spyOn(addAccountStub, 'add')
+    const addSpy = jest.spyOn(addAccountStub, 'execute')
     await sut.handle(makeFakeRequest())
 
     expect(addSpy).toHaveBeenCalledWith({
@@ -76,7 +76,7 @@ describe('SignUp Controller', () => {
 
   it('should return 500 if AddAccount throws', async () => {
     const { sut, addAccountStub } = makeSut()
-    jest.spyOn(addAccountStub, 'add').mockRejectedValueOnce(new Error())
+    jest.spyOn(addAccountStub, 'execute').mockRejectedValueOnce(new Error())
     const httpReponse = await sut.handle(makeFakeRequest())
 
     expect(httpReponse).toEqual(serverError(new ServerError(null)))
