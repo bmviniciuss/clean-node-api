@@ -1,3 +1,4 @@
+import { AuthenticationDTO } from '../../../domain/dto/AuthenticationDTO'
 import {
   LoadAccountByEmailRepository,
   HashComparer,
@@ -5,7 +6,6 @@ import {
   UpdateAccessTokenRepository,
   Authentication
 } from './DbAuthenticationProtocols'
-import { AuthenticationDTO } from '../../../domain/dto/AuthenticationDTO'
 
 export class DbAuthentication implements Authentication {
   constructor (

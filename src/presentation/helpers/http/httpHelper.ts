@@ -8,6 +8,13 @@ export function badRequest (error: Error): HttpResponse {
   }
 }
 
+export function forbidden (error: Error): HttpResponse {
+  return {
+    statusCode: 403,
+    body: error
+  }
+}
+
 export function unauthorized (): HttpResponse {
   return {
     statusCode: 401,

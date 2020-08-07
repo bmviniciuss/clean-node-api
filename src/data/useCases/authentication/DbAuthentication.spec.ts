@@ -1,13 +1,13 @@
 
+import { AuthenticationDTO } from '../../../domain/dto/AuthenticationDTO'
 import { DbAuthentication } from './DbAuthentication'
 import {
   AccountModel,
   LoadAccountByEmailRepository,
   HashComparer,
   Encrypter,
-  UpdateAccessTokenRepository,
+  UpdateAccessTokenRepository
 } from './DbAuthenticationProtocols'
-import { AuthenticationDTO } from '../../../domain/dto/AuthenticationDTO'
 
 function makefakeAccount (): AccountModel {
   return {

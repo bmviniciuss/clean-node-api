@@ -20,7 +20,8 @@ describe('Login Routes', () => {
   afterAll(async () => {
     await MongoHelper.disconnect()
   })
-  describe('POST /signup', async () => {
+
+  describe('POST /signup', () => {
     it('Should return 200 on signup', async () => {
       await request(app)
         .post('/api/signup')
@@ -34,33 +35,33 @@ describe('Login Routes', () => {
     })
   })
 
-  describe('POST /login', async () => {
-    it('Should return 200 on login', async () => {
-      const passwordHash = await hash('1234', 12)
+  // describe('POST /login', () => {
+  //   it('Should return 200 on login', async () => {
+  //     const passwordHash = await hash('1234', 12)
 
-      await accountCollection.insertOne({
-        name: 'Vinicius Barbosa',
-        email: 'vinicius_barbosa@gmail.com',
-        password: passwordHash
-      })
+  //     await accountCollection.insertOne({
+  //       name: 'Vinicius Barbosa',
+  //       email: 'vinicius_barbosa@gmail.com',
+  //       password: passwordHash
+  //     })
 
-      await request(app)
-        .post('/api/login')
-        .send({
-          email: 'vinicius_barbosa@gmail.com',
-          password: '1234'
-        })
-        .expect(200)
-    })
+  //     await request(app)
+  //       .post('/api/login')
+  //       .send({
+  //         email: 'vinicius_barbosa@gmail.com',
+  //         password: '1234'
+  //       })
+  //       .expect(200)
+  //   })
 
-    it('Should return 401 on login', async () => {
-      await request(app)
-        .post('/api/login')
-        .send({
-          email: 'vinicius_barbosa@gmail.com',
-          password: '1234'
-        })
-        .expect(401)
-    })
-  })
+  //   it('Should return 401 on login', async () => {
+  //     await request(app)
+  //       .post('/api/login')
+  //       .send({
+  //         email: 'vinicius_barbosa@gmail.com',
+  //         password: '1234'
+  //       })
+  //       .expect(401)
+  //   })
+  // })
 })
