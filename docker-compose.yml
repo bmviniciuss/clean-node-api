@@ -6,7 +6,7 @@ services:
     image: mongo:3
     restart: always
     volumes:
-      - ./mongodb:/data/db
+      - ./mongodb-data:/data/db
     ports:
       - "27017:27017"
   app:
