@@ -8,11 +8,7 @@
   "description": "NodeJs Rest API using TDD, Clean Architecture and TypeScript",
   "scripts": {
     "build": "rimraf dist && tsc",
-    "build:watch": "npx typescript -w",
     "dev": "ts-node-dev --respawn --transpile-only src/main/server.ts",
-    "dev:watch": "npx concurrently \"npm run build:watch\" \"npm run dev:run\"",
-    "dev:run": "npx nodemon ./dist/main/server.js",
-    "dev:debug": "npx nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
     "lint": "eslint 'src/**' --quiet",
     "lint:fix": "eslint 'src/**' --quiet --fix",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
