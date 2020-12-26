@@ -1,7 +1,7 @@
 import { Collection } from 'mongodb'
 
 import { AddAccountDTO } from '../../../../domain/dto/AddAccountDTO'
-import { MongoHelper } from '../helpers/mongoHelper'
+import { MongoConnectionSingleton } from '../helpers/MongoConnectionSingleton'
 import { AccountMongoRepository } from './AccountMongoRepository'
 
 type MakeSutReturnType = {
@@ -17,21 +17,19 @@ function makeSut (): MakeSutReturnType {
 }
 
 let accountCollection: Collection
-
 describe('Account Mongo Repository', () => {
   beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL)
+    await MongoConnectionSingleton.getInstance().connect(process.env.MONGO_URL)
   })
 
   beforeEach(async () => {
-    accountCollection = await MongoHelper.getCollection('accounts')
+    accountCollection = await MongoConnectionSingleton.getInstance().getCollection('accounts')
     await accountCollection.deleteMany({})
   })
 
   afterAll(async () => {
-    await MongoHelper.disconnect()
+    await MongoConnectionSingleton.getInstance().disconnect()
   })
-
   it('Should return an account on add success', async () => {
     const { sut } = makeSut()
     const account = await sut.add({

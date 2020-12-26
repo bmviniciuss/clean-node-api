@@ -1,11 +1,9 @@
-import { MongoHelper } from '../infra/db/mongodb/helpers/mongoHelper'
+import { MongoConnectionSingleton } from '../infra/db/mongodb/helpers'
 import env from './config/env'
 
-MongoHelper.connect(env.mongoUrl)
+MongoConnectionSingleton.getInstance().connect(env.mongoUrl)
   .then(async () => {
     const app = await (await import('./config/app')).default
-
-    console.log('ENV: ', env)
 
     app.listen(env.port, () => {
       console.log(`Server running at http://localhost:${env.port}`)

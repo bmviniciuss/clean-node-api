@@ -1,3 +1,6 @@
+.idea
+globalConfig.json
+
 # Custom
 dist
 mongodb-data
