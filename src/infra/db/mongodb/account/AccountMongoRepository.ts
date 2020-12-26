@@ -3,21 +3,20 @@ import { LoadAccountByEmailRepository } from '../../../../data/protocols/db/acco
 import { UpdateAccessTokenRepository } from '../../../../data/protocols/db/account/UpdateAccessTokenRepository'
 import { AddAccountDTO } from '../../../../domain/dto/AddAccountDTO'
 import { AccountModel } from '../../../../domain/models/Account'
-import { MongoConnectionSingleton } from '../helpers/MongoConnectionSingleton'
-import { MongoHelper } from '../helpers/mongoHelper'
+import { MongoConnectionSingleton, MongoMapper } from '../helpers'
 
 export class AccountMongoRepository implements AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository {
   async add (accountData: AddAccountDTO): Promise<AccountModel> {
     const accountCollection = await MongoConnectionSingleton.getInstance().getCollection('accounts')
     const result = await accountCollection.insertOne(accountData)
-    return MongoHelper.map(result.ops[0])
+    return MongoMapper.mapCollectionId(result.ops[0])
   }
 
   async loadByEmail (email: string): Promise<AccountModel> {
     const accountCollection = await MongoConnectionSingleton.getInstance().getCollection('accounts')
     const account = await accountCollection.findOne({ email })
     if (account) {
-      return MongoHelper.map(account)
+      return MongoMapper.mapCollectionId(account)
     }
   }
 

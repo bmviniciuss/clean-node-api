@@ -1,6 +1,6 @@
 import { Collection } from 'mongodb'
 
-import { MongoHelper } from '../helpers/mongoHelper'
+import { MongoConnectionSingleton } from '../helpers'
 import { LogMongoRepository } from './LogMongoRepository'
 
 type MakeSutType = {
@@ -18,16 +18,16 @@ describe('LogMongoReposiory', () => {
   let errorCollection: Collection
 
   beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL)
+    await MongoConnectionSingleton.getInstance().connect(process.env.MONGO_URL)
   })
 
   beforeEach(async () => {
-    errorCollection = await MongoHelper.getCollection('errors')
+    errorCollection = await MongoConnectionSingleton.getInstance().getCollection('errors')
     await errorCollection.deleteMany({})
   })
 
   afterAll(async () => {
-    await MongoHelper.disconnect()
+    await MongoConnectionSingleton.getInstance().disconnect()
   })
 
   it('Should create an error log on success ', async () => {
