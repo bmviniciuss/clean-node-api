@@ -17,13 +17,13 @@ jobs:
         with:
           node-version: "12.x"
       - name: Install Dependencies
-        run: yarn
+        run: npm install
 
       - name: Check Linting
-        run: yarn lint
+        run: npm run lint
 
       - name: Test
-        run: yarn test:ci
+        run: npm run test:ci
         env:
           CI: true
 
