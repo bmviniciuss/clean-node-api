@@ -1,8 +1,8 @@
-import { AddAccountDTO } from '../../../domain/dto/AddAccountDTO'
-import { AuthenticationDTO } from '../../../domain/dto/AuthenticationDTO'
-import { ServerError, MissingParamError, EmailInUseError } from '../../errors'
-import { OK, serverError, badRequest, forbidden } from '../../helpers/http'
-import { HttpRequest } from '../../protocols'
+import { AddAccountDTO } from '../../../../domain/dto/AddAccountDTO'
+import { AuthenticationDTO } from '../../../../domain/dto/AuthenticationDTO'
+import { ServerError, MissingParamError, EmailInUseError } from '../../../errors'
+import { OK, serverError, badRequest, forbidden } from '../../../helpers/http'
+import { HttpRequest } from '../../../protocols'
 import { SignUpController } from './SignUpController'
 import { AddAccount, AccountModel, Validation, Authentication } from './SignupProtocols'
 

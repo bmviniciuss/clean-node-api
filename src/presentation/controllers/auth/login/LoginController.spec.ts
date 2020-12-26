@@ -1,6 +1,6 @@
-import { AuthenticationDTO } from '../../../domain/dto/AuthenticationDTO'
-import { MissingParamError } from '../../errors'
-import { badRequest, serverError, unauthorized, OK } from '../../helpers/http'
+import { AuthenticationDTO } from '../../../../domain/dto/AuthenticationDTO'
+import { MissingParamError } from '../../../errors'
+import { badRequest, serverError, unauthorized, OK } from '../../../helpers/http'
 import { LoginController } from './LoginController'
 import { Authentication, HttpRequest, Validation } from './loginProtocols'
 
