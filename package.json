@@ -9,18 +9,18 @@
   "scripts": {
     "build": "rimraf dist && npx typescript",
     "build:watch": "npx typescript -w",
-    "dev": "npx concurrently \"yarn build\" \"yarn dev:run\"",
-    "dev:watch": "npx concurrently \"yarn build:watch\" \"yarn dev:run\"",
+    "dev": "npx concurrently \"npm run build\" \"npm run dev:run\"",
+    "dev:watch": "npx concurrently \"npm run build:watch\" \"npm run dev:run\"",
     "dev:run": "npx nodemon ./dist/main/server.js",
     "dev:debug": "npx nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
     "lint": "eslint 'src/**' --quiet",
     "lint:fix": "eslint 'src/**' --quiet --fix",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand --watch",
-    "test:unit": "yarn test --watch -c ./jest-unit.config.js",
-    "test:integration": "yarn test --watch -c ./jest-integration.config.js",
-    "test:staged": "yarn test --findRelatedTests",
-    "test:ci": "yarn test --coverage"
+    "test:unit": "npm run test --watch -c ./jest-unit.config.js",
+    "test:integration": "npm run test --watch -c ./jest-integration.config.js",
+    "test:staged": "npm run test --findRelatedTests",
+    "test:ci": "npm run test --coverage"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.1.5",
