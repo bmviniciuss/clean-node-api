@@ -53,7 +53,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "fast-glob": "^3.2.2",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongodb": "^3.5.8",
     "validator": "^13.0.0"
   },
